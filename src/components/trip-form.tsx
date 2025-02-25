@@ -2,42 +2,62 @@
 
 import { useTripDetailsContext } from '@/hooks/use-trip-details-context';
 import { Users, Wallet, Plane, Calendar, ArrowRight } from 'lucide-react';
-import { CitySelector } from './city-selector';
-import { DatePicker } from './date-picker';
+import { CitySelector } from '@/components/city-selector';
+import { DatePicker } from '@/components/date-picker';
+import { Slider } from '@/components/ui/slider';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export function TripForm() {
   const { tripDetails, updateTripDetails, handleSubmit } = useTripDetailsContext();
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-2">
+        <div className="space-y-2 ">
           <label className="flex items-center text-sm font-medium text-zinc-700">
             <Users className="w-4 h-4 mr-2" />
-            Number of Travelers
+            Number of Adults
           </label>
-          <input
-            type="number"
-            min="1"
-            value={tripDetails.travelers}
-            onChange={(e) => updateTripDetails('travelers', parseInt(e.target.value))}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all text-zinc-700"
-            required
-          />
+          <Select>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="3" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 5 }, (_, i) => {
+                const value = i + 1;
+                return (
+                  <SelectItem key={value} value={`${value}`}>
+                    {value}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
         </div>
-
-        <div className="space-y-2">
+        <div className="space-y-2 ">
           <label className="flex items-center text-sm font-medium text-zinc-700">
-            <Wallet className="w-4 h-4 mr-2" />
-            Budget (USD)
+            <Users className="w-4 h-4 mr-2" />
+            Number of Children
           </label>
-          <input
-            type="number"
-            min="0"
-            value={tripDetails.budget}
-            onChange={(e) => updateTripDetails('budget', parseInt(e.target.value))}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all text-zinc-700"
-            required
-          />
+          <Select>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="0" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 6 }, (_, i) => {
+                return (
+                  <SelectItem key={i} value={`${i}`}>
+                    {i}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -50,7 +70,7 @@ export function TripForm() {
             Departure Date
           </label>
           <DatePicker
-            label="Select Departure Date..."
+            placeholder="February 25, 2025"
             date={tripDetails.startDate}
             updateDate={(date) => updateTripDetails('startDate', date)}
           />
@@ -63,11 +83,25 @@ export function TripForm() {
           </label>
 
           <DatePicker
-            label="Select Return Date..."
+            placeholder="March 12, 2025"
             date={tripDetails.endDate}
             updateDate={(date) => updateTripDetails('endDate', date)}
           />
         </div>
+      </div>
+      <div className="space-y-2 ">
+        <label className="flex items-center text-sm font-medium text-zinc-700">
+          <Wallet className="w-4 h-4 mr-2" />
+          Budget (USD)
+        </label>
+        <Slider
+          defaultValue={[tripDetails.budget]}
+          max={10000}
+          step={100}
+          onValueChange={(value) => updateTripDetails('budget', value[0])}
+          className="w-full"
+        />
+        <span className="text-right mt-2 text-gold">${tripDetails.budget}</span>
       </div>
 
       <button

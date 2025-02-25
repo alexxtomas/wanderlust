@@ -96,7 +96,10 @@ function CitySelect({ value, onChange, disabledCity, label }: CitySelectProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className={cn(
+            'justify-between text-left font-normal w-full',
+            !value && 'text-muted-foreground',
+          )}
         >
           {value ? (
             <>

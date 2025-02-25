@@ -11,11 +11,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 export function DatePicker({
   date,
   updateDate,
-  label,
+  placeholder,
 }: {
   date: Date | null;
   updateDate: (date: Date | null) => void;
-  label: string;
+  placeholder: string;
 }) {
   return (
     <Popover>
@@ -27,14 +27,14 @@ export function DatePicker({
             !date && 'text-muted-foreground',
           )}
         >
-          {date ? format(date, 'PPP') : <span>{label}</span>}
+          {date ? format(date, 'PPP') : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           selected={date ?? undefined}
-          onSelect={() => updateDate(date)}
+          onSelect={(date) => updateDate(date ?? null)}
           initialFocus
         />
       </PopoverContent>
