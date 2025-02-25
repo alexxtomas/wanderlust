@@ -1,8 +1,10 @@
+'use client';
 import { TripForm } from '@/components/trip-form';
 import { TripsSuggestions } from '@/components/trip-suggestions';
+import { TripDetailsProvider } from '@/contexts/trip-details-context';
 import { useTripDetailsContext } from '@/hooks/use-trip-details-context';
 
-export function FindTripFlow() {
+function BaseFindTripFlow() {
   const { step } = useTripDetailsContext();
 
   if (step === 1) {
@@ -15,4 +17,12 @@ export function FindTripFlow() {
     );
   }
   return <TripsSuggestions />;
+}
+
+export function FindTripFlow() {
+  return (
+    <TripDetailsProvider>
+      <BaseFindTripFlow />
+    </TripDetailsProvider>
+  );
 }
