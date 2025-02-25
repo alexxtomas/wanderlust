@@ -1,19 +1,30 @@
 'use client';
 import { createContext, useState } from 'react';
 
+export type City = {
+  name: string;
+  country: string;
+  flag: string;
+};
+
 export type TripDetails = {
   travelers: number;
-  origin: string;
-  destination: string;
-  startDate: string;
-  endDate: string;
+  origin: City | null;
+  destination: City | null;
+  startDate: Date | null;
+  endDate: Date | null;
   budget: number;
 };
+
+type UpdateTripDetails = (
+  field: keyof TripDetails,
+  value: string | number | City | null | Date,
+) => void;
 
 export type TripDetailsContextType = {
   tripDetails: TripDetails;
   step: number;
-  updateTripDetails: (field: keyof TripDetails, value: string | number) => void;
+  updateTripDetails: UpdateTripDetails;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   updateStep: (step: number) => void;
 };
@@ -24,10 +35,10 @@ export const TripDetailsProvider = ({ children }: { children: React.ReactNode })
   const [step, setStep] = useState<number>(1);
   const [tripDetails, setTripDetails] = useState<TripDetails>({
     travelers: 1,
-    origin: '',
-    destination: '',
-    startDate: '',
-    endDate: '',
+    origin: null,
+    destination: null,
+    startDate: null,
+    endDate: null,
     budget: 0,
   });
 
@@ -35,7 +46,7 @@ export const TripDetailsProvider = ({ children }: { children: React.ReactNode })
     setStep(step);
   };
 
-  const updateTripDetails = (field: keyof TripDetails, value: string | number) => {
+  const updateTripDetails: UpdateTripDetails = (field, value) => {
     setTripDetails((prev) => ({ ...prev, [field]: value }));
   };
 

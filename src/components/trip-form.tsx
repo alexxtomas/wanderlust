@@ -2,6 +2,8 @@
 
 import { useTripDetailsContext } from '@/hooks/use-trip-details-context';
 import { Users, Wallet, Plane, Calendar, ArrowRight } from 'lucide-react';
+import { CitySelector } from './city-selector';
+import { DatePicker } from './date-picker';
 
 export function TripForm() {
   const { tripDetails, updateTripDetails, handleSubmit } = useTripDetailsContext();
@@ -39,62 +41,31 @@ export function TripForm() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <label className="flex items-center text-sm font-medium text-zinc-700">
-            <Plane className="w-4 h-4 mr-2" />
-            Origin City
-          </label>
-          <input
-            type="text"
-            value={tripDetails.origin}
-            onChange={(e) => updateTripDetails('origin', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all text-zinc-700"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="flex items-center text-sm font-medium text-zinc-700">
-            <Plane className="w-4 h-4 mr-2 transform rotate-90" />
-            Destination City
-          </label>
-          <input
-            type="text"
-            value={tripDetails.destination}
-            onChange={(e) => updateTripDetails('destination', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all text-zinc-700"
-            required
-          />
-        </div>
-      </div>
+      <CitySelector />
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="flex items-center text-sm font-medium text-zinc-700">
+          <label className="flex items-center text-sm font-medium text-gray-700">
             <Calendar className="w-4 h-4 mr-2" />
             Departure Date
           </label>
-          <input
-            type="date"
-            value={tripDetails.startDate}
-            onChange={(e) => updateTripDetails('startDate', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all text-zinc-700"
-            required
+          <DatePicker
+            label="Select Departure Date..."
+            date={tripDetails.startDate}
+            updateDate={(date) => updateTripDetails('startDate', date)}
           />
         </div>
 
         <div className="space-y-2">
-          <label className="flex items-center text-sm font-medium text-zinc-700">
+          <label className="flex items-center text-sm font-medium text-gray-700">
             <Calendar className="w-4 h-4 mr-2" />
             Return Date
           </label>
-          <input
-            type="date"
-            value={tripDetails.endDate}
-            onChange={(e) => updateTripDetails('endDate', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all text-zinc-700"
-            required
+
+          <DatePicker
+            label="Select Return Date..."
+            date={tripDetails.endDate}
+            updateDate={(date) => updateTripDetails('endDate', date)}
           />
         </div>
       </div>
