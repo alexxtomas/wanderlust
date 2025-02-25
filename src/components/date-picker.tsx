@@ -12,11 +12,29 @@ export function DatePicker({
   date,
   updateDate,
   placeholder,
+  before,
+  after,
 }: {
   date: Date | null;
   updateDate: (date: Date | null) => void;
   placeholder: string;
+  before?: Date | null;
+  after?: Date | null;
 }) {
+  // @ts-ignore
+  const disabled: {
+    before: Date;
+    after: Date;
+  } = {};
+
+  if (before) {
+    disabled.before = before;
+  }
+
+  if (after) {
+    disabled.after = after;
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -36,6 +54,7 @@ export function DatePicker({
           selected={date ?? undefined}
           onSelect={(date) => updateDate(date ?? null)}
           initialFocus
+          disabled={disabled}
         />
       </PopoverContent>
     </Popover>

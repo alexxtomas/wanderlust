@@ -74,6 +74,8 @@ export function TripForm() {
             Departure Date
           </label>
           <DatePicker
+            before={new Date()}
+            after={tripDetails.endDate}
             placeholder="February 25, 2025"
             date={tripDetails.startDate}
             updateDate={(date) => updateTripDetails('startDate', date)}
@@ -87,6 +89,7 @@ export function TripForm() {
           </label>
 
           <DatePicker
+            before={tripDetails.startDate}
             placeholder="March 12, 2025"
             date={tripDetails.endDate}
             updateDate={(date) => updateTripDetails('endDate', date)}
