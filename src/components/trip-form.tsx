@@ -112,7 +112,7 @@ export function TripForm() {
         type="submit"
         className="w-full bg-indigo-600 text-white py-4 px-6 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2 group"
       >
-        <span>Find Perfect Matches</span>
+        <span className="text-xl font-medium">Find Perfect Matches</span>
         <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
       </button>
     </form>
