@@ -8,7 +8,8 @@ export type City = {
 };
 
 export type TripDetails = {
-  travelers: number;
+  adults: number;
+  children: number;
   origin: City | null;
   destination: City | null;
   startDate: Date | null;
@@ -34,7 +35,8 @@ export const TripDetailsContext = createContext<TripDetailsContextType | null>(n
 export const TripDetailsProvider = ({ children }: { children: React.ReactNode }) => {
   const [step, setStep] = useState<number>(1);
   const [tripDetails, setTripDetails] = useState<TripDetails>({
-    travelers: 1,
+    adults: 1,
+    children: 0,
     origin: null,
     destination: null,
     startDate: null,

@@ -23,15 +23,18 @@ export function TripForm() {
             <Users className="w-4 h-4 mr-2" />
             Number of Adults
           </label>
-          <Select>
+          <Select
+            value={tripDetails.adults.toString()}
+            onValueChange={(value) => updateTripDetails('adults', parseInt(value))}
+          >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="3" />
+              <SelectValue placeholder="1" />
             </SelectTrigger>
             <SelectContent>
               {Array.from({ length: 5 }, (_, i) => {
                 const value = i + 1;
                 return (
-                  <SelectItem key={value} value={`${value}`}>
+                  <SelectItem key={value} value={value.toString()}>
                     {value}
                   </SelectItem>
                 );
@@ -44,14 +47,17 @@ export function TripForm() {
             <Users className="w-4 h-4 mr-2" />
             Number of Children
           </label>
-          <Select>
+          <Select
+            value={tripDetails.children.toString()}
+            onValueChange={(value) => updateTripDetails('children', parseInt(value))}
+          >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="0" />
+              <SelectValue placeholder="1" />
             </SelectTrigger>
             <SelectContent>
               {Array.from({ length: 6 }, (_, i) => {
                 return (
-                  <SelectItem key={i} value={`${i}`}>
+                  <SelectItem key={i} value={i.toString()}>
                     {i}
                   </SelectItem>
                 );
