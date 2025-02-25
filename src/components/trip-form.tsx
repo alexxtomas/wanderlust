@@ -60,9 +60,7 @@ export function TripForm() {
           </Select>
         </div>
       </div>
-
       <CitySelector />
-
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
